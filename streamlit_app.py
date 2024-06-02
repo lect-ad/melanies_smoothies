@@ -29,10 +29,11 @@ customer_name = st.text_input("Name on smoothie:", "", max_chars=100)
 st.write(f"The name on your smoothie will be {customer_name}")
 
 if ingredients_list:
-    # st.write("Your favourite fruit is:", ingredients_list)
-    # st.text(ingredients_list)
     ingredients_string = (', ').join(ingredients_list)
     st.text(ingredients_string)
+    for fruit_chosen in ingredients_list:
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+        fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
 
     if customer_name:
         submit_button = st.button('Submit Order')
@@ -44,6 +45,3 @@ if ingredients_list:
             session.sql(insert_stmt).collect()
             st.success(f'Your Smoothie is ordered, {customer_name}!', icon="✅")
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-#st.text(fruityvice_response.json())
-df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
