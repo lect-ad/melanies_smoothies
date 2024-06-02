@@ -16,9 +16,8 @@ session = cnx.session()
 #fruit_list = session.sql('select distinct fruit_name from smoothies.public.fruit_options')
 
 my_dataframe = session.table("smoothies.public.fruit_options")
-#st.dataframe(data=my_dataframe, use_container_width=True)
-
-fruit_list = my_dataframe.select(col('FRUIT_NAME')) 
+fruit_list = my_dataframe.select(col('FRUIT_NAME'), col('SEARCH_ON')) 
+st.dataframe(data=my_dataframe, use_container_width=True)
 
 ingredients_list = st.multiselect(
     "Choose up to 5 ingredients:",
